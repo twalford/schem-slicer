@@ -1,7 +1,7 @@
 # schem-slicer
 Generate PNGs from Schematic.
 
-Does not support all textures!!!! You will need to add your own texture files and change the code.
+Only supports textures in the 'blocks' folder.
 
 # Usage
 Create an empty folder named "out"
