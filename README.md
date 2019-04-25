@@ -1,6 +1,6 @@
 # schem-slicer
 Generate PNGs from Schematic.
-
+Perfect for creating Minecraft map art in survival mode.
 Only supports textures in the 'blocks' folder.
 
 # Usage
