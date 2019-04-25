@@ -4,7 +4,6 @@ Generate PNGs from Schematic.
 Only supports textures in the 'blocks' folder.
 
 # Usage
-Create an empty folder named "out"
 ### run.py path axis [options]
 ```
   path:  The path to your schematic file 
@@ -20,10 +19,11 @@ Create an empty folder named "out"
   -n  Write the slice number on the image
   -g  Draw a grid (grey)
   -bg 0-255 0-255 0-255   Set the background colour (default blue-grey)
+  -a  Generate a txt file with the block amounts
 ```
 ### examples
 ```
-  run.py test.schematic x -n -f -c 
+  run.py test.schematic x -n -f -c -a
   run.py test.schematic y -n -bg 255 255 255 
   run.py test.schematic z -g 
 ```
