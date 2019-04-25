@@ -28,6 +28,7 @@ options:
   -n  Write the slice number on the image
   -g  Draw a grid (grey)
   -bg 0-255 0-255 0-255   Set the background colour (default blue-grey)
+  -a  Generate a txt file with the block amounts
 
 examples:
   run.py test.schematic x -n -f -c
@@ -64,7 +65,9 @@ def main():
 			if sys.argv[i] == '-bg':
 				bg_R = int(sys.argv[i+1])
 				bg_G = int(sys.argv[i+2])
-				bg_B = int(sys.argv[i+3])				
+				bg_B = int(sys.argv[i+3])	
+			if sys.argv[i] == '-a':
+				doAnalysis = True
 	
 	##### Load schematic #####
 	infile = nbt.nbt.NBTFile(filename, 'rb')
@@ -333,6 +336,8 @@ def main():
 		[39,34,33,31,40,32,35,29,38,28,36,26,27,30,37,25],#252
 	]
 	
+	blockList = []
+	
 	##### Prepare loops#####
 	width = infile['Width'].value
 	length = infile['Length'].value
@@ -400,6 +405,16 @@ def main():
 				if (id != 0):	
 					try:
 						tex_index = tmap[id][data]
+						
+						if (doAnalysis):
+							key = str(id)+":"+str(data)
+							found = False
+							for b in blockList:
+								if b[0] == key:
+									b[1] += 1
+									found = True
+							if found == False:
+								blockList.append([key, 1])
 					except:
 						print("cant find texture for {}:{}".format(id,data))
 						continue
@@ -438,7 +453,15 @@ def main():
 		
 		print ("saved image {}".format(outerLoop))
 		#end outer loop
-		
+	
+	if (doAnalysis):
+		f = open("out/analysis.txt","w")
+		blockList.sort()
+		for b in blockList:
+			f.write("{} {}\n".format(b[0],b[1]))
+		f.close()
+		print("Analysis saved to file")
+	
 	print ("finished. Check the out folder!")
 
 if __name__ == '__main__':
