@@ -9,6 +9,7 @@ import sys
 import numpy
 import nbt
 import glob
+import os
 
 from PIL import Image, ImageFont, ImageDraw
 from numpy import array, zeros, fromstring
@@ -45,6 +46,7 @@ def main():
 	doFlip = False
 	doNumbering = False
 	doGrid = False
+	doAnalysis = False
 	bg_R = 200
 	bg_G = 200
 	bg_B = 255
@@ -374,6 +376,10 @@ def main():
 	print ("do grid {}".format(doGrid))
 	print ("generating images...")
 	
+	if not os.path.exists('./out/'):
+		os.makedirs('./out/')
+
+
 	##### Generate images #####
 	for outerLoop in range(outerRange):
 		hightestRowNonAir = 0
