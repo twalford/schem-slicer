@@ -35,11 +35,11 @@ run.py only supports textures in the 'blocks' folder (see also Minecraft version
 1.13 removed numeric block IDs and changed NBT tags, in the change known as "The Flattening".
 
 Schematics saved in these newer Minecraft versions store the block data in NBT tag 'BlockData' rather than 'Blocks' and 'Data'.
-For this newer format data, use **run-flattening.py** instead.  Options are the same as run.py except -c is not implemented.
+For this newer format data, use **slicer.py** instead.  Options are the same as run.py except -c is not implemented.
 
 ### Textures
 
-run-flattening.py uses images from textures/ rather than blocks/
+slicer.py uses images from textures/ rather than blocks/
 
 These are copied from the default Minecraft 1.17.1 resource pack, a merge of these 2 directories: minecraft/textures/block/ minecraft/textures/item/
 
