@@ -106,8 +106,7 @@ def main():
 						textureImage = textureImage.crop((0,0,16,16)) # only use first frame if animation
 						textures.append([blockItem[0], blockItem[1], blockItem[2], textureImage, 0])
 	except:
-		raise
-		print("print error loading textures")
+		raise ValueError("error loading textures")
 	
 	##### Prepare loops#####
 	width = infile['Width'].value
@@ -118,18 +117,24 @@ def main():
 	imgH = 0 #pixel height of the images
 	size = (0,0) #pixel dimensions of the images 
 	
+	validAxis = False
 	if axis == 'x':
 		outerRange = width
 		middleRange = height
 		innerRange = length
+		validAxis = True
 	if axis == 'y':
 		outerRange = height
 		middleRange = length
 		innerRange = width
+		validAxis = True
 	if axis == 'z':
 		outerRange = length
 		middleRange = height
 		innerRange = width
+		validAxis = True
+	if not validAxis:
+		raise ValueError("axis must be x|y|z")
 	
 	imgW = 16 * innerRange
 	imgH = 16 * middleRange
@@ -143,6 +148,9 @@ def main():
 	print ("do numbering: {}".format(doNumbering))
 	print ("do grid {}".format(doGrid))
 	print ("generating images...")
+	
+	if axis == 'z':
+		doFlip = not doFlip
 	
 	if not os.path.exists('./out/'):
 		os.makedirs('./out/')
@@ -204,8 +212,11 @@ def main():
 		### Options ###
 		if doFlip:
 			canvas = canvas.transpose(Image.FLIP_LEFT_RIGHT) #Flips the image left-to-right
-			
-		sliceNo = height-outerLoop
+		
+		if axis == 'y':
+			sliceNo = height-outerLoop-1
+		else:
+			sliceNo = outerLoop
 			
 		draw = ImageDraw.Draw(canvas)
 		if doNumbering:
