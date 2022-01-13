@@ -34,8 +34,8 @@ options:
   -a  Generate a txt file with the block amounts
 
 examples:
-  slicer.py test.schematic x -n -f
-  slicer.py test.schematic y -n -bg 255 255 255
+  slicer.py test.schematic x -n
+  slicer.py test.schematic y -n -g -a -bg 255 255 255
   slicer.py test.schematic z -g"""
 
 def main():
